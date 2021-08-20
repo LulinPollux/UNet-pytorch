@@ -113,7 +113,8 @@ class Decoder(nn.Module):
         return nn.Sequential(
             models.modules.conv.SeparableConv2d(in_channels, out_channels, kernel_size=1, bias=False),
             nn.BatchNorm2d(out_channels),
-            nn.ReLU(inplace=True),
+            nn.SiLU(inplace=True),
+            models.modules.attention.SpatialAttention(kernel_size=5),
         )
 
     def make_decoder(self, in_channels: int, mid_channels: int, out_channels: int):
